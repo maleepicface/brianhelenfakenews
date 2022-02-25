@@ -14,7 +14,19 @@ app = dash.Dash(__name__)
 
 app.layout = html.Div(children=[
     html.H1(children='Fake News Classifier'),
-
+    html.Hr(),
+        dbc.Spinner(
+            dbc.Row(
+                [
+                    dbc.Col(dbc.Button("Run", id="button-translate"), width=2),
+                    dbc.Col(
+                        html.Div(id="time-output", style={"margin-top": "8px"}),
+                        width=10,
+                    ),
+                ],
+                style={"margin-bottom": "15px"},
+            )
+        ),
     html.Div(children='''
         Dash: A web application framework for your data.
     '''),
@@ -33,9 +45,11 @@ app.layout = html.Div(children=[
 ])
 
 @app.callback(
+
     Output("output", "children"),
     Input("article", "value"),
     Input("url", "value"),
+    Input("button-translate", "n_clicks"),
 )
 # def update_output(input1, input2):
 #
